@@ -22,6 +22,11 @@ public class CashWithdrawlState implements ATMState {
     @Override
     public void cashWithdrawl(ATMMachine machine, double amount) throws Exception {
         double avlBal = machine.getCard().getAccount().getBalance();
+        if(machine.getBalance() < amount) {
+            System.out.println("Insufficient Amount in ATM.");
+            cancel(machine);
+            return;
+        }
         if(amount > avlBal) {
             System.out.println("Insufficient Balance.");
             cancel(machine);
